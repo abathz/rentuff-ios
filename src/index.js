@@ -1,20 +1,18 @@
 import React from 'react'
-import { AppRegistry, View } from 'react-native'
+import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk'
 import reducers from './reducers'
-import App from 'container/App'
-
-const store = createStore(reducers)
+import Router from './Router'
 
 const Apps = () => {
+  const store = createStore(reducers, applyMiddleware(ReduxThunk))
   return (
     <Provider store={store}>
-      <View>
-        <App />
-      </View>
+      <Router />
     </Provider>
   )
 }
 
-AppRegistry.registerComponent('YOUR_APP_NAME', () => Apps)
+AppRegistry.registerComponent('Rentuff', () => Apps)
