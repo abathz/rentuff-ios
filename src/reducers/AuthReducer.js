@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native'
+import { REHYDRATE } from 'redux-persist/constants'
 import {
   SIGN_UP_UPDATE,
   SIGN_UP_SUCCESS,

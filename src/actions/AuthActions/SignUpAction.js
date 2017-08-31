@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 import axios from 'axios'
 import qs from 'qs'
 import {
@@ -32,7 +33,6 @@ export const checkEmail = ({ email }) => {
 export const generateVerificationCode = ({ phone }) => {
   return () => {
     axios.post('/phone/generate', qs.stringify({ phone }))
-      .then(() => Actions.userSignUpFifth())
   }
 }
 
@@ -60,6 +60,8 @@ const signUpUserSuccess = (dispatch, user) => {
     type: SIGN_UP_SUCCESS,
     payload: user
   })
+  AsyncStorage.setItem('api', user.data.api_token)
+  AsyncStorage.setItem('firstName', user.data.profile.first_name)
 
   Actions.tabbar()
 }

@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 import axios from 'axios'
 import qs from 'qs'
 import {
@@ -22,11 +23,31 @@ export const loginUser = (data) => {
   }
 }
 
+export const logOutUser = () => {
+  return () => {
+    AsyncStorage.getItem('api')
+      .then(value => {
+        axios.get('/logout', {
+          headers: {
+            'Authorization': `Bearer ${value}`
+          }
+        })
+          .then(logOutUserSuccess())
+      })
+  }
+}
+
+const logOutUserSuccess = () => {
+  AsyncStorage.clear().then(() => Actions.auth())
+}
+
 const loginUserSuccess = (dispatch, user) => {
   dispatch({
     type: LOG_IN_SUCCESS,
     payload: user
   })
+  AsyncStorage.setItem('api', user.data.api_token)
+  AsyncStorage.setItem('firstName', user.data.profile.first_name)
 
   Actions.tabbar()
 }

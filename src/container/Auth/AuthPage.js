@@ -4,7 +4,6 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  NetInfo,
   StyleSheet
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
@@ -12,22 +11,6 @@ import { Actions } from 'react-native-router-flux'
 import { Button } from 'components/common'
 
 class AuthPage extends Component {
-  state = { status: '' }
-
-  componentDidMount () {
-    NetInfo.addEventListener('change', this.handleConnectionChange)
-
-    NetInfo.fetch()
-      .done((isConnected) => {
-        this.setState({ status: isConnected })
-      })
-  }
-
-  handleConnectionChange = (isConnected) => {
-    this.setState({ status: isConnected })
-    console.log(`is connected: ${this.state.status}`)
-  }
-
   render () {
     const {
       containerStyle,
@@ -46,7 +29,6 @@ class AuthPage extends Component {
         <View>
           <Button
             style={{ backgroundColor: '#fff', top: 335 }}
-            fontStyle={{ color: '#3bbeb8' }}
             onPress={() => Actions.userSignUpFirst()}
           >
             <Text style={[textStyle, { color: '#3bbeb8' }]}>
