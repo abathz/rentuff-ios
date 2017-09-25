@@ -17,7 +17,11 @@ export const loginUserUpdate = ({ prop, value }) => {
 
 export const loginUser = (data) => {
   return (dispatch) => {
-    axios.post('/login', qs.stringify(data))
+    axios.post('/login', qs.stringify(data), {
+      headers: {
+        'Version': '1044'
+      }
+    })
       .then(user => loginUserSuccess(dispatch, user))
       .catch(error => loginUserFail(dispatch, error))
   }
@@ -38,7 +42,7 @@ export const logOutUser = () => {
 }
 
 const logOutUserSuccess = () => {
-  AsyncStorage.clear().then(() => Actions.auth())
+  AsyncStorage.clear().then(() => Actions.auth({ type: 'reset' }))
 }
 
 const loginUserSuccess = (dispatch, user) => {

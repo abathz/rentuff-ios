@@ -14,7 +14,7 @@ class RenterTransaction extends Component {
   render () {
     return (
       <View>
-        <Text></Text>
+        <Text>asdasd</Text>
       </View>
     )
   }

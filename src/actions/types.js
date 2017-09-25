@@ -5,6 +5,9 @@ axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencod
 axios.defaults.headers.common['Accept'] = 'application/json'
 
 export const REFRESH_CONTENT = 'REFRESH_CONTENT'
+export const INCREMENT = 'INCREMENT'
+export const DECREMENT = 'DECREMENT'
+export const GET_GEOCODER = 'GET_GEOCODER'
 
 export const SIGN_UP_UPDATE = 'SIGN_UP_UPDATE'
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
@@ -23,3 +26,5 @@ export const GET_STUFF_BY_CATEGORY_SUCCESS = 'GET_STUFF_BY_CATEGORY_SUCCESS'
 
 export const GET_RENTER_TRANSACTION_SUCCESS = 'GET_RENTER_TRANSACTION_SUCCESS'
 export const GET_RENTER_TRANSACTION_FAIL = 'GET_RENTER_TRANSACTION_FAIL'
+
+export const UPDATE_DATA_NEW_LENDING = 'UPDATE_DATA_NEW_LENDING'

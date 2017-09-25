@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import {
   View,
   Text,
-  Image,
+  ImageBackground,
   ScrollView,
   TouchableHighlight,
   StyleSheet
 } from 'react-native'
+import { Actions } from 'react-native-router-flux'
+import {
+  LazyloadScrollView,
+  LazyloadView,
+  LazyloadImage
+} from 'react-native-lazyload'
 import { Spinner } from 'components/common'
 import { getStuffByCategory, refreshContent } from 'actions'
 
@@ -41,13 +47,15 @@ class StuffByCategory extends Component {
     return stuffs.map(stuff => {
       return (
         <View key={stuff.id_stuff} style={containerStuff}>
-          <Image style={imageStyle} source={{ uri: stuff.stuff_photo }}>
-            <View style={containerButtonSewa}>
-              <TouchableHighlight style={buttonSewa} activeOpacity={1} underlayColor="#eee" onPress={() => { }}>
-                <Text style={textButton}>Sewakan</Text>
-              </TouchableHighlight>
-            </View>
-          </Image>
+          <LazyloadImage host="lazyload">
+            <ImageBackground style={imageStyle} source={{ uri: stuff.stuff_photo }}>
+              <View style={containerButtonSewa}>
+                <TouchableHighlight style={buttonSewa} activeOpacity={1} underlayColor="#eee" onPress={() => Actions.createNewLending({ title: 'Listing' })}>
+                  <Text style={textButton}>Sewakan</Text>
+                </TouchableHighlight>
+              </View>
+            </ImageBackground>
+          </LazyloadImage>
           <Text style={textStyle}>{stuff.stuff_name}</Text>
           <Text style={footerText}>{stuff.n_renter} lender</Text>
         </View>
@@ -64,13 +72,13 @@ class StuffByCategory extends Component {
     if (!this.props.allStuff) { return <Spinner /> }
 
     return (
-      <View style={container}>
-        <ScrollView>
+      <LazyloadScrollView name="lazyload">
+        <View style={container}>
           <View style={containerContent}>
             {this.renderListOfStuff()}
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </LazyloadScrollView>
     )
   }
 }
