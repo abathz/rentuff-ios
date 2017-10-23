@@ -8,19 +8,6 @@ import Router from './Router'
 
 const Apps = () => {
   const store = createStore(reducers, applyMiddleware(ReduxThunk))
-  // const store = createStore(
-  //   reducers,
-  //   {},
-  //   compose(
-  //     applyMiddleware(ReduxThunk)
-  //   ),
-  //   autoRehydrate()
-  // )
-
-  // persistStore(store, { storage: AsyncStorage }, () => {
-  //   console.log('restored')
-  // })
-
   return (
     <Provider store={store}>
       <Router />

@@ -13,13 +13,6 @@ class CalendarViews extends Component {
 
     return (
       <View style={container}>
-        <Calendar
-          onDayPress={value => this.onDayPress(value)}
-          onMonthChange={(month) => { console.log('month changed', month) }}
-          style={styles.calendar}
-          markedDates={this.listDates()}
-          markingType={'interactive'}
-        />
       </View>
     )
   }
