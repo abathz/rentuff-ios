@@ -1,7 +1,8 @@
 import {
   GET_USER_SUCCESS,
   EDIT_PROFILE_USER_UPDATE,
-  EDIT_PROFILE_USER_SUCCESS
+  EDIT_PROFILE_USER_SUCCESS,
+  GET_ACCOUNT_BANK_USER
 } from 'actions/types'
 
 const INITIAL_STATE = {
@@ -17,7 +18,12 @@ const INITIAL_STATE = {
   review_renter: 0,
   review_lender: 0,
   newPhone: '',
-  verficationCode: ''
+  verficationCode: '',
+  listBank: '',
+  idBank: '',
+  accountName: '',
+  accountNumber: '',
+  password: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,6 +47,15 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, [action.payload.prop]: action.payload.value }
     case EDIT_PROFILE_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE }
+    case GET_ACCOUNT_BANK_USER:
+      return {
+        ...state,
+        listBank: action.payload.data.bank_list,
+        idBank: action.payload.data.account.id_bank,
+        accountName: action.payload.data.account.account_name,
+        accountNumber: action.payload.data.account.account_number,
+        password: ''
+      }
     default:
       return state
   }

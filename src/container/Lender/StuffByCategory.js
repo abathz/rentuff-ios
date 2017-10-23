@@ -4,7 +4,6 @@ import {
   View,
   Text,
   ImageBackground,
-  ScrollView,
   TouchableHighlight,
   StyleSheet
 } from 'react-native'
@@ -50,7 +49,7 @@ class StuffByCategory extends Component {
           <LazyloadImage host="lazyload">
             <ImageBackground style={imageStyle} source={{ uri: stuff.stuff_photo }}>
               <View style={containerButtonSewa}>
-                <TouchableHighlight style={buttonSewa} activeOpacity={1} underlayColor="#eee" onPress={() => Actions.createNewLending({ title: 'Listing' })}>
+                <TouchableHighlight style={buttonSewa} activeOpacity={1} underlayColor="#eee" onPress={() => Actions.rootLender({ title: 'Listing' })}>
                   <Text style={textButton}>Sewakan</Text>
                 </TouchableHighlight>
               </View>
@@ -87,13 +86,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingRight: 15
+    padding: 20
   },
   containerContent: {
-    paddingRight: 10,
-    paddingLeft: 10,
     justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap'
@@ -106,7 +101,7 @@ const styles = StyleSheet.create({
     height: 150
   },
   textStyle: {
-    fontSize: 14,
+    fontSize: 13,
     paddingTop: 5,
     fontFamily: 'Helvetica Neue'
   },

@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { Input, Button } from 'components/common'
-import { editProfileUpdate, requestChangePhone, updateNewPhoneNumber } from 'actions'
+import { userDataUpdate, requestChangePhone, updateNewPhoneNumber } from 'actions'
 
 class VerificationPhoneNumber extends Component {
   componentWillMount () {
@@ -31,7 +31,7 @@ class VerificationPhoneNumber extends Component {
             autoFocus
             style={{ marginLeft: 90, marginRight: 90, justifyContent: 'center' }}
             value={this.props.verificationCode}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'verificationCode', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'verificationCode', value })}
           />
           <TouchableOpacity onPress={() => this.props.resendVerificationCode({ phone: this.props.newPhone })}>
             <Text style={resendCode}>Resend code</Text>
@@ -87,4 +87,4 @@ const mapStateToProps = ({ user }) => {
   return { newPhone, verificationCode }
 }
 
-export default connect(mapStateToProps, { editProfileUpdate, requestChangePhone, updateNewPhoneNumber })(VerificationPhoneNumber)
+export default connect(mapStateToProps, { userDataUpdate, requestChangePhone, updateNewPhoneNumber })(VerificationPhoneNumber)

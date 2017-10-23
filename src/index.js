@@ -3,7 +3,6 @@ import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
-// import { persistStore, autoRehydrate } from 'redux-persist'
 import reducers from './reducers'
 import Router from './Router'
 

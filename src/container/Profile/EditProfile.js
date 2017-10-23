@@ -11,7 +11,7 @@ import {
 import StarRating from 'react-native-star-rating'
 import { Actions } from 'react-native-router-flux'
 import { Spinner } from 'components/common'
-import { getUserData, editProfileUpdate, editProfile } from 'actions'
+import { getUserData, userDataUpdate, editProfile } from 'actions'
 
 class EditProfile extends Component {
   state = {
@@ -66,7 +66,7 @@ class EditProfile extends Component {
           <TextInput
             style={textInputStyle}
             value={first_name}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'first_name', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'first_name', value })}
           />
         </View>
         <View style={[borderTop, nextChild]}>
@@ -74,7 +74,7 @@ class EditProfile extends Component {
           <TextInput
             style={textInputStyle}
             value={last_name}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'last_name', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'last_name', value })}
           />
         </View>
       </View>
@@ -90,7 +90,7 @@ class EditProfile extends Component {
           caretHidden
           value={about_me}
           style={{ fontSize: 13, padding: 5 }}
-          onChangeText={value => this.props.editProfileUpdate({ prop: 'about_me', value })}
+          onChangeText={value => this.props.userDataUpdate({ prop: 'about_me', value })}
         />
       </View>
     )
@@ -105,7 +105,7 @@ class EditProfile extends Component {
           <TextInput
             style={textInputStyle}
             value={birth_date}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'birth_date', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'birth_date', value })}
           />
         </View>
         <View style={[borderTop, nextChild]}>
@@ -113,7 +113,7 @@ class EditProfile extends Component {
           <TextInput
             style={textInputStyle}
             value={email}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'email', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'email', value })}
           />
         </View>
         <View style={[borderTop, nextChild]}>
@@ -263,4 +263,4 @@ const mapStateToProps = ({ user }) => {
   }
 }
 
-export default connect(mapStateToProps, { getUserData, editProfileUpdate, editProfile })(EditProfile)
+export default connect(mapStateToProps, { getUserData, userDataUpdate, editProfile })(EditProfile)

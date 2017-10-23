@@ -238,7 +238,7 @@ class CreateNewLending extends Component {
                 </TouchableOpacity>
               </View>
               <View style={cardSectionSyarat}>
-                <Text style={textSyarat}>Menunjukkan minimal 3 tanda pengenal (KTP, SIM, Passport, dll)</Text>
+                <Text style={textSyarat}>Menunjukkan minimal 2 tanda pengenal (KTP, SIM, Passport, dll)</Text>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.updateLendingData({ prop: 'requirement_2', value: !requirement_2 * 1 })}>
                   <View style={radioButton}>
                     {!requirement_2 ? <View /> : <View style={selectedRadioButton} />}
@@ -377,9 +377,8 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ lending, count }) => {
+const mapStateToProps = ({ lending, map, count }) => {
   const {
-    address_line,
     description,
     additional_terms,
     price,
@@ -392,6 +391,8 @@ const mapStateToProps = ({ lending, count }) => {
     requirement_2,
     requirement_3
   } = lending
+
+  const { address_line } = map
 
   return {
     address_line,

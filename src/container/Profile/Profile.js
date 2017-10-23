@@ -15,22 +15,25 @@ class Profile extends Component {
   render () {
     const {
       container,
-      button,
-      text
+      button
     } = styles
 
     return (
       <View style={container}>
-        <StatusBar barStyle="light-content" />
         <Card>
           <CardSection>
             <TouchableHighlight style={button} activeOpacity={1} underlayColor="#eee" onPress={() => Actions.modal()}>
-              <Text style={text}>Lihat dan Ubah Profile</Text>
+              <Text>Lihat dan Ubah Profile</Text>
+            </TouchableHighlight>
+          </CardSection>
+          <CardSection>
+            <TouchableHighlight style={button} activeOpacity={1} underlayColor="#eee" onPress={() => Actions.rootSetting()}>
+              <Text>Setelan</Text>
             </TouchableHighlight>
           </CardSection>
           <CardSection>
             <TouchableHighlight style={button} activeOpacity={1} underlayColor="#eee" onPress={() => this.props.logOutUser()}>
-              <Text style={text}>Log out</Text>
+              <Text>Log out</Text>
             </TouchableHighlight>
           </CardSection>
         </Card>

@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Input, Button } from 'components/common'
-import { editProfileUpdate } from 'actions'
+import { userDataUpdate } from 'actions'
 
 class ChangePhoneNumber extends Component {
   render () {
@@ -29,7 +29,7 @@ class ChangePhoneNumber extends Component {
             label="MOBILE"
             placeholder=""
             value={this.props.newPhone}
-            onChangeText={value => this.props.editProfileUpdate({ prop: 'newPhone', value })}
+            onChangeText={value => this.props.userDataUpdate({ prop: 'newPhone', value })}
           />
           <Button style={buttonStyle} onPress={() => Actions.verificationPhoneNumber()}>
             <Image
@@ -83,4 +83,4 @@ const mapStateToProps = ({ user }) => {
   return { newPhone }
 }
 
-export default connect(mapStateToProps, { editProfileUpdate })(ChangePhoneNumber)
+export default connect(mapStateToProps, { userDataUpdate })(ChangePhoneNumber)

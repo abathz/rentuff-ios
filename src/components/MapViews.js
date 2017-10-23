@@ -7,61 +7,43 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
-import { updateLendingData, getDataFromGeocoder } from 'actions'
+import { updateDataMap, updateDataRenter, getDataFromGeocoder } from 'actions'
 
 let { width, height } = Dimensions.get('window')
 
 const ASPECT_RATIO = width / height
-const LATITUDE = 0
-const LONGITUDE = 0
 const LATITUDE_DELTA = 0.0042
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 class MapViews extends Component {
-  state = {
-    region: {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-      latitudeDelta: 0,
-      longitudeDelta: 0
-    }
-  }
-
-  selectedLocation (e) {
+  selectedLocation (e, id) {
     var location = {
       lat: e.nativeEvent.coordinate.latitude,
       lng: e.nativeEvent.coordinate.longitude
     }
-    this.props.updateLendingData({ prop: 'address_latitude', value: location.lat })
-    this.props.updateLendingData({ prop: 'address_longitude', value: location.lng })
-    this.props.getDataFromGeocoder(location)
+    this.props.updateDataMap({ prop: 'address_latitude', value: location.lat })
+    this.props.updateDataMap({ prop: 'address_longitude', value: location.lng })
+    this.props.updateDataRenter({ prop: 'idStuff', value: this.props.idStuff })
+    this.props.getDataFromGeocoder(location, id)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-          }
-        })
+        this.props.updateDataMap({ prop: 'latitude', value: position.coords.latitude })
+        this.props.updateDataMap({ prop: 'longitude', value: position.coords.longitude })
+        this.props.updateDataMap({ prop: 'latitudeDelta', value: LATITUDE_DELTA })
+        this.props.updateDataMap({ prop: 'longitudeDelta', value: LONGITUDE_DELTA })
       },
       (error) => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     )
     this.watchID = navigator.geolocation.watchPosition(
       position => {
-        this.setState({
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-          }
-        })
+        this.props.updateDataMap({ prop: 'latitude', value: position.coords.latitude })
+        this.props.updateDataMap({ prop: 'longitude', value: position.coords.longitude })
+        this.props.updateDataMap({ prop: 'latitudeDelta', value: LATITUDE_DELTA })
+        this.props.updateDataMap({ prop: 'longitudeDelta', value: LONGITUDE_DELTA })
       },
       (error) => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -69,7 +51,7 @@ class MapViews extends Component {
   }
 
   onRegionChange (region) {
-    this.setState({ region })
+    this.props.updateDataMap({ prop: 'region', value: region })
   }
 
   componentWillUnmount () {
@@ -77,6 +59,8 @@ class MapViews extends Component {
   }
 
   render () {
+    const { idMap, region } = this.props
+
     const {
       container,
       map
@@ -84,21 +68,38 @@ class MapViews extends Component {
 
     return (
       <View style={container}>
-        <MapView
-          style={map}
-          region={this.state.region}
-          showsCompass={true}
-          showsUserLocation={true}
-          followsUserLocation={true}
-          showsMyLocationButton={true}
-          zoomEnabled={true}
-          onRegionChange={this.onRegionChange.bind(this)}
-        >
-          <MapView.Marker
-            coordinate={this.state.region}
-            onSelect={e => this.selectedLocation(e)}>
-          </MapView.Marker>
-        </MapView>
+        {idMap === 1
+          ? <MapView
+            style={map}
+            region={region}
+            showsCompass={true}
+            showsUserLocation={true}
+            followsUserLocation={true}
+            showsMyLocationButton={true}
+            zoomEnabled={true}
+            onRegionChange={this.onRegionChange.bind(this)}
+          >
+            <MapView.Marker
+              coordinate={region}
+              onSelect={e => this.selectedLocation(e, idMap)}>
+            </MapView.Marker>
+          </MapView>
+          : <MapView
+            style={map}
+            region={region}
+            showsCompass={true}
+            showsUserLocation={true}
+            followsUserLocation={true}
+            showsMyLocationButton={true}
+            zoomEnabled={true}
+            onRegionChange={this.onRegionChange.bind(this)}
+          >
+            <MapView.Marker
+              coordinate={region}
+              onSelect={e => this.selectedLocation(e, idMap)}>
+            </MapView.Marker>
+          </MapView>
+        }
       </View>
     )
   }
@@ -114,4 +115,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(null, { updateLendingData, getDataFromGeocoder })(MapViews)
+const mapStateToProps = ({ map }) => {
+  const { region } = map
+
+  return { region }
+}
+
+export default connect(mapStateToProps, { updateDataMap, updateDataRenter, getDataFromGeocoder })(MapViews)

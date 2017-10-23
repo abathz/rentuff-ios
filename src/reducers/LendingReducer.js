@@ -6,11 +6,6 @@ import {
 const INITAL_STATE = {
   account_name: '',
   account_number: '',
-  address_line: '',
-  address_city: '',
-  address_state: '',
-  address_latitude: '',
-  address_longitude: '',
   price: '',
   additional_price: '',
   price_by: 1,
@@ -32,8 +27,6 @@ export default (state = INITAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_DATA_NEW_LENDING:
       return { ...state, [action.payload.prop]: action.payload.value }
-    case GET_GEOCODER:
-      return { ...state, mapData: action.payload }
     default:
       return state
   }
